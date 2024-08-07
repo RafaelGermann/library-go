@@ -1,6 +1,7 @@
 CREATE DATABASE IF NOT EXISTS libraryGo;
 USE libraryGo;
 
+DROP TABLE IF EXISTS Publicacoes;
 DROP TABLE IF EXISTS Seguidores;
 DROP TABLE IF EXISTS Usuarios;
 
@@ -22,4 +23,15 @@ CREATE TABLE Seguidores
     seguidor_id int,
     FOREIGN key (seguidor_id) REFERENCES Usuarios (id) ON DELETE CASCADE,
     PRIMARY KEY (usuario_id, seguidor_id)
+) ENGINE = INNODB;
+
+CREATE TABLE Publicacoes
+(
+    id       INT AUTO_INCREMENT PRIMARY KEY,
+    titulo   VARCHAR(50)  NOT NULL,
+    conteudo VARCHAR(300) NOT NULL,
+    autor_id INT          NOT NULL,
+    FOREIGN key (autor_id) REFERENCES Usuarios (id) ON DELETE CASCADE,
+    curtidas INT       default 0,
+    criadoEm TIMESTAMP DEFAULT current_timestamp()
 ) ENGINE = INNODB;
